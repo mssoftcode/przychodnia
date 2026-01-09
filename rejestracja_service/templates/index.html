@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Przychodnia - Rejestracja</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        form input, form button {
+            margin: 5px 0;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Panel Rejestracji - Przychodnia Lekarska</h1>
+
+    <h2>Dodaj nowego pacjenta</h2>
+    <form action="/add_patient" method="POST">
+        <input type="text" name="name" placeholder="Imię pacjenta" required>
+        <input type="text" name="surname" placeholder="Nazwisko pacjenta" required>
+        <input type="number" name="age" placeholder="Wiek pacjenta" required>
+        <input type="text" name="contact" placeholder="Kontakt pacjenta" required>
+        <button type="submit">Dodaj Pacjenta</button>
+    </form>
+
+    <h2>Lista pacjentów</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>Wiek</th>
+                <th>Kontakt</th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for patient in patients %}
+            <tr>
+                <td>{{ patient.id }}</td>
+                <td>{{ patient.name }}</td>
+                <td>{{ patient.surname }}</td>
+                <td>{{ patient.age }}</td>
+                <td>{{ patient.contact }}</td>
+                <td>
+                    <a href="{{ url_for('edit_patient', id=patient.id) }}">Edytuj</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- Dodawanie lekarza -->
+    <h2>Dodaj nowego lekarza</h2>
+    <form action="/add_doctor" method="POST">
+        <input type="text" name="name" placeholder="Imię lekarza" required>
+        <input type="text" name="surname" placeholder="Nazwisko lekarza" required>
+        <input type="text" name="specialty" placeholder="Specjalizacja lekarza" required>
+        <button type="submit">Dodaj Lekarza</button>
+    </form>
+
+    <!-- Lista lekarzy -->
+    <h2>Lista lekarzy</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>Specjalizacja</th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for doctor in doctors %}
+            <tr>
+                <td>{{ doctor.id }}</td>
+                <td>{{ doctor.name }}</td>
+                <td>{{ doctor.surname }}</td>
+                <td>{{ doctor.specialty }}</td>
+                <td>
+                    <a href="{{ url_for('edit_doctor', id=doctor.id) }}">Edytuj</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

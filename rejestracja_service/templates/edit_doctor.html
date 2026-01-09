@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Edytuj Lekarza</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        form input {
+            width: 90%;
+            margin: 5px 0 10px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 95%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Edytuj Lekarza</h2>
+
+    <form method="POST">
+        <label for="name">Imię:</label>
+        <input type="text" id="name" name="name" value="{{ doctor.name }}" required>
+
+        <label for="surname">Nazwisko:</label>
+        <input type="text" id="surname" name="surname" value="{{ doctor.surname }}" required>
+
+        <label for="specialty">Specjalizacja:</label>
+        <input type="text" id="specialty" name="specialty" value="{{ doctor.specialty }}" required>
+
+        <button type="submit">Zapisz zmiany</button>
+    </form>
+
+</body>
+</html>

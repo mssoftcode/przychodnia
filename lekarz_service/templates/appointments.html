@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Wizyty Lekarza</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th, td {
+            padding: 10px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .back-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 200px;
+            text-align: center;
+        }
+        .back-btn:hover {
+            background-color: #45a049;
+        }
+        .add-recommendation-btn {
+            background-color: #ffa500;
+            padding: 8px 16px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 180px;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .add-recommendation-btn:hover {
+            background-color: #e68900;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Wizyty Lekarza: {{ doctor_name }} {{ doctor_surname }} [{{ doctor_specialty }}]</h1>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Imię Pacjenta</th>
+                    <th>Nazwisko Pacjenta</th>
+                    <th>Wiek</th>
+                    <th>Data Wizyty</th>
+                    <th>Zalecenia Lekarskie</th>
+                    <th>Dodaj Zalecenie</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for appointment in appointments %}
+                <tr>
+                    <td>{{ appointment.patient_name }}</td>
+                    <td>{{ appointment.patient_surname }}</td>
+                    <td>{{ appointment.patient_age }}</td>
+                    <td>{{ appointment.appointment_date }}</td>
+                    <td>
+                        {% if appointment.recommendations %}
+                            <ul>
+                            {% for rec in appointment.recommendations %}
+                                <li>{{ rec }}</li>
+                            {% endfor %}
+                            </ul>
+                        {% else %}
+                            <span>Brak rekomendacji</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if appointment.recommendation %}
+                         <span>{{ appointment.recommendation }}</span>
+                        {% else %}
+                        <a href="{{ url_for('add_recommendation', appointment_id=appointment.id) }}" class="add-recommendation-btn">Zalecenie</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" style="text-align:center;">Brak wizyt.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ url_for('login') }}" class="back-btn">Wyloguj się</a>
+    </div>
+</body>
+</html>
