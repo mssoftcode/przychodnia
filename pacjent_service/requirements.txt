@@ -1,2 +1,4 @@
-Flask
-Flask-SQLAlchemy
+flask
+flask-sqlalchemy
+flask-session
+requests

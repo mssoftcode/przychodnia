@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  rejestracja:
+    build: ./rejestracja_service
+    container_name: rejestracja
+    ports:
+      - "5002:5002"
+    volumes:
+      - ./rejestracja_service:/app
+    networks:
+      - mednet
+
+  pacjent:
+    build: ./pacjent_service
+    container_name: pacjent
+    ports:
+      - "5003:5003"
+    volumes:
+      - ./pacjent_service:/app
+    depends_on:
+      - rejestracja
+    networks:
+      - mednet
+
+  lekarz:
+    build: ./lekarz_service
+    container_name: lekarz
+    ports:
+      - "5004:5004"
+    volumes:
+      - ./lekarz_service:/app
+    depends_on:
+      - rejestracja
+      - pacjent
+    networks:
+      - mednet
+
+networks:
+  mednet:
+    driver: bridge

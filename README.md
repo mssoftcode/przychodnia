@@ -1,1 +1,1 @@
-# przychodnia
+# System zarzadzania przychodnia
